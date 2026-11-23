@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="description" content="Fuera de campo · lo que pasa en el Parque Centenario cuando no mirás la pantalla.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="fuera de campo">
+<title>fuera de campo</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="real">
+<div id="stage">
+  <div id="device"><div id="phone"></div></div>
+</div>
+<div id="toast" role="status"></div>
+<script src="morphdom.min.js"></script>
+<script src="dc.js"></script>
+<script src="fx.js"></script>
+<script src="pantallas.js"></script>
+<script src="app.js"></script>
+<script src="parque.js"></script>
+<script>
+if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+</script>
+</body>
+</html>

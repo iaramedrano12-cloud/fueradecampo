@@ -1,0 +1,91 @@
+:root{--lime:#EAFE9F;--ink:#111111;--stage:#E9E9E5;--stage-fg:#8A8A86;--bezel:#111111;--k:1;--ph:852}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--stage:#1B1B1A;--bezel:#000000;color-scheme:dark}}
+:root[data-theme="dark"]{--stage:#1B1B1A;--bezel:#000000;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--stage);font-family:Manrope,system-ui,sans-serif;color:var(--ink);overflow:hidden}
+#stage{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+#device{position:relative;width:calc(393px*var(--k));height:calc(var(--ph)*1px*var(--k));border-radius:calc(50px*var(--k));box-shadow:0 0 0 calc(11px*var(--k)) var(--bezel),0 40px 90px rgba(0,0,0,.28);overflow:hidden;background:#fff;isolation:isolate}
+#phone{position:absolute;left:0;top:0;width:393px;height:calc(var(--ph)*1px);transform:scale(var(--k));transform-origin:0 0;overflow:hidden;background:#fff}
+#hint{margin:0;font-size:12px;color:var(--stage-fg)}
+body.mobile #device{border-radius:0;box-shadow:none}
+body.mobile #hint{display:none}
+body.mobile #stage{justify-content:flex-start}
+
+.scr{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:#fff;will-change:transform}
+.scr::-webkit-scrollbar{display:none}
+.host{position:relative;min-height:100%}
+.host > div{margin:0 auto}
+
+/* transiciones entre pantallas */
+.t-in.tr-push{animation:inPush .46s cubic-bezier(.2,.8,.2,1) both;z-index:2;box-shadow:-20px 0 40px rgba(0,0,0,.06)}
+.t-out.out-push{animation:outPush .46s cubic-bezier(.2,.8,.2,1) both}
+.t-in.tr-back{animation:inBack .46s cubic-bezier(.2,.8,.2,1) both}
+.t-out.out-back{animation:outBack .46s cubic-bezier(.2,.8,.2,1) both;z-index:2}
+.t-in.tr-fade{animation:inFade .52s ease both}
+.t-out.out-fade{animation:outFade .52s ease both}
+.t-in.tr-up{animation:inUp .52s cubic-bezier(.2,.8,.2,1) both;z-index:2}
+.t-out.out-up{animation:outDim .52s ease both}
+.t-in.tr-down{animation:inFade .3s ease both}
+.t-out.out-down{animation:outDown .48s cubic-bezier(.4,0,.6,1) both;z-index:2}
+.t-in.tr-menu{animation:inMenu .52s cubic-bezier(.2,.8,.2,1) both;z-index:2}
+.t-out.out-menu{animation:outDim .52s ease both}
+.t-in.tr-reveal{z-index:2}
+.t-out.out-reveal{animation:outScale .8s cubic-bezier(.65,0,.35,1) both}
+@keyframes inPush{from{transform:translateX(100%)}to{transform:none}}
+@keyframes outPush{to{transform:translateX(-28%);filter:brightness(.96)}}
+@keyframes inBack{from{transform:translateX(-28%)}to{transform:none}}
+@keyframes outBack{to{transform:translateX(100%)}}
+@keyframes inFade{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
+@keyframes outFade{to{opacity:0}}
+@keyframes inUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes outDown{to{transform:translateY(100%)}}
+@keyframes outDim{to{transform:scale(.96);opacity:.5}}
+@keyframes inMenu{from{clip-path:circle(0 at 50% 92%)}to{clip-path:circle(140% at 50% 92%)}}
+@keyframes outScale{to{transform:scale(.92);opacity:.6}}
+
+#toast{position:fixed;left:50%;bottom:40px;transform:translate(-50%,16px);opacity:0;background:#111;color:var(--lime);font:500 13px Manrope,sans-serif;padding:10px 16px;border-radius:20px;pointer-events:none;transition:opacity .3s,transform .3s;z-index:20;max-width:88vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+
+.host svg{pointer-events:none}
+.host button,.host a,.host input,.host textarea,.host [data-h-click],.host [data-h-pointerdown]{pointer-events:auto}
+
+.t-in.tr-tab{z-index:2;background:transparent}
+.t-in.tr-tab .host>div{background:transparent!important}
+.t-out.out-tab{animation:outTab .5s ease both}
+@keyframes outTab{to{opacity:0;translate:0 -14px}}
+@keyframes tabIn{from{opacity:0;translate:0 var(--dy,24px)}to{translate:0 0}}
+
+#sbar{position:absolute;left:0;top:0;width:393px;height:50px;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:6px 30px 0 46px;box-sizing:border-box;color:#111;pointer-events:none;font:600 16px -apple-system,"SF Pro Text",Manrope,sans-serif;letter-spacing:-.01em;transition:color .4s}
+#sbar svg{fill:currentColor;display:block}
+#sbar .sb-ic{display:flex;align-items:center;gap:6px}
+#phone.sb-dark #sbar{color:#fff}
+
+
+
+#fs{border:0;background:transparent;padding:4px 2px;font:inherit;color:var(--stage-fg);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+#fs:hover{color:var(--ink)}
+:fullscreen #hint{display:none}
+
+body:not(.mobile) #stage{padding-top:84px;box-sizing:border-box}
+:fullscreen body:not(.mobile) #stage{padding-top:96px}
+
+/* efectos al tocar */
+#fxl{position:absolute;left:0;top:0;width:393px;height:100%;pointer-events:none;z-index:40;overflow:hidden}
+.fx-dot{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:rgba(234,254,159,.9);mix-blend-mode:multiply;animation:fxDot .6s cubic-bezier(.2,.8,.2,1) forwards}
+.fx-ring{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:1px solid #111;animation:fxRing .7s cubic-bezier(.2,.8,.2,1) forwards}
+.fx-dot.dk{mix-blend-mode:normal;background:rgba(234,254,159,.5)}
+.fx-ring.dk{border-color:#EAFE9F}
+@keyframes fxDot{from{transform:scale(.4);opacity:1}to{transform:scale(5.5);opacity:0}}
+@keyframes fxRing{from{transform:scale(.2);opacity:.9}to{transform:scale(1.5);opacity:0}}
+#sbar{z-index:45}
+#phone{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}#phone input,#phone textarea{-webkit-user-select:text;user-select:text}
+
+/* app real: sin marco de celular */
+body.real{background:#FFFFFF;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
+body.real #stage{padding:0!important;justify-content:flex-start;gap:0}
+body.real #device{border-radius:0!important;box-shadow:none!important;margin:0 auto}
+@media (min-width:560px){body.real{background:#ECECE9}body.real #device{box-shadow:0 0 0 1px rgba(0,0,0,.06)!important}}
+body.real #sbar,body.real #hint{display:none}
+.scr{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+body.real .host{margin-top:-24px}

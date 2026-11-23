@@ -1,0 +1,27 @@
+fuera de campo — la app
+
+Qué es
+La app en sí, sin el marco del celular. Ocupa toda la pantalla, se instala en el inicio
+con su ícono, guarda lo que la persona carga (nombre, contactos, retos) y funciona
+sin internet una vez abierta. Usa el GPS: cuando alguien entra al Parque Centenario
+le aparece "llegaste", y si salió mientras estaba fuera de campo, "volviste".
+
+Cómo publicarla
+- Netlify: app.netlify.com/drop y arrastrás esta carpeta entera.
+- Vercel: "Add New → Project", subís la carpeta. Framework "Other", sin build.
+Tiene que estar en https (Netlify y Vercel ya lo hacen): sin eso el GPS y la
+instalación no andan.
+
+Cómo la instala una persona
+- iPhone (Safari): abrir el link → compartir → "Agregar a inicio".
+- Android (Chrome): abrir el link → menú → "Instalar app" (o aparece el aviso solo).
+
+Para probar desde cualquier lado
+- En la home, tocar "Afuera del parque" simula que cruzás las rejas.
+- El link con #reiniciar al final borra todo y vuelve al onboarding.
+- ?s=mapa (o home, retos, historial…) abre directo en esa pantalla.
+
+Archivos
+index.html · app.js (navegación y gestos) · fx.js (transiciones) · app.css ·
+parque.js (GPS y avisos) · sw.js (funciona sin internet) · manifest.webmanifest
+(nombre e ícono al instalarla) · pantallas.js (todas las pantallas) · íconos .png
